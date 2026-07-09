@@ -24,15 +24,17 @@ def load_config(config_path=None):
             key, value = [part.strip() for part in line.split('=', 1)]
             config[key.lower()] = value
 
+    config['host'] = os.environ.get('HOST', config.get('host', DEFAULT_CONFIG['host']))
+    config['port'] = os.environ.get('PORT', config.get('port', DEFAULT_CONFIG['port']))
     config['port'] = int(config['port'])
     return config
 
 
 @app.route('/')
 def hello_world():
-    return 'Hello, world!'
+    return 'sundari'
 
 
 if __name__ == '__main__':
     config = load_config()
-    app.run(host=config['host'], port=config['port'], debug=True)
+    app.run(host=config['host'], port=config['port'], debug=False)
